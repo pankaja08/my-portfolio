@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+portfolio-temp/.next/
+portfolio-temp/out/
+
+# Build outputs
+portfolio-temp/build/
+dist/
+
+# Env files (keep .env.example)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Package manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Turbopack / Next.js cache
+portfolio-temp/.next/
+*.tsbuildinfo
