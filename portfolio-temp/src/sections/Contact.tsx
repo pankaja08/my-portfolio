@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, Loader2, CheckCircle2, Mail, User, MessageSquare } from "lucide-react";
 
 /* ─── Formspree endpoint ───────────────────────────────────── */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjrevwy";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -114,9 +114,9 @@ function RobotBot({ isTyping }: { isTyping: boolean }) {
 /* ─── Main Contact Section ─────────────────────────────────── */
 export default function Contact() {
   const [formState, setFormState] = useState<FormState>("idle");
-  const [values, setValues]       = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors]       = useState<Partial<typeof values>>({});
-  const [isTyping, setIsTyping]   = useState(false);
+  const [values, setValues] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState<Partial<typeof values>>({});
+  const [isTyping, setIsTyping] = useState(false);
   const typingTimer = useRef<NodeJS.Timeout | null>(null);
 
   /* Debounced typing detection — 1.2 s silence resets */
@@ -130,9 +130,9 @@ export default function Contact() {
 
   const validate = () => {
     const errs: Partial<typeof values> = {};
-    if (!values.name.trim())                                errs.name    = "Name is required";
-    if (!values.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errs.email   = "Valid email required";
-    if (values.message.trim().length < 10)                  errs.message = "Message must be at least 10 characters";
+    if (!values.name.trim()) errs.name = "Name is required";
+    if (!values.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errs.email = "Valid email required";
+    if (values.message.trim().length < 10) errs.message = "Message must be at least 10 characters";
     return errs;
   };
 
@@ -149,7 +149,7 @@ export default function Contact() {
         body: JSON.stringify(values),
       });
       if (res.ok) { setFormState("success"); setValues({ name: "", email: "", message: "" }); }
-      else          setFormState("error");
+      else setFormState("error");
     } catch {
       setFormState("error");
     }
@@ -205,7 +205,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
+    <section id="contact" className="section-padding scroll-mt-24 relative overflow-hidden">
 
       {/* Ambient blobs */}
       <div style={{
@@ -462,7 +462,7 @@ export default function Contact() {
                     type="submit"
                     disabled={formState === "loading"}
                     whileHover={formState !== "loading" ? { scale: 1.02, y: -2 } : {}}
-                    whileTap={formState !== "loading"   ? { scale: 0.98 }        : {}}
+                    whileTap={formState !== "loading" ? { scale: 0.98 } : {}}
                     style={{
                       width: "100%", display: "flex", alignItems: "center", justifyContent: "center",
                       gap: 10, padding: "1rem 1.5rem", borderRadius: 14, marginTop: 4,

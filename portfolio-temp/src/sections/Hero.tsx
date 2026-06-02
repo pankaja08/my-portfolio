@@ -168,7 +168,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex flex-col overflow-hidden pt-24"
     >
       {/* Ambient blobs */}
       <div
@@ -180,37 +180,64 @@ export default function Hero() {
         style={{ background: "rgba(99,102,241,0.08)", filter: "blur(120px)", animationDelay: "2s" }}
       />
 
-      <div className="container w-full pt-24 pb-12">
+      <div className="hero-container">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           {/* ── Left: Text Content (7 of 12 cols) ── */}
-          <div className="lg:col-span-7 space-y-12">
-            {/* Badge */}
+          <div className="lg:col-span-7" style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+
+            {/* ─ Available badge ─ */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass glow-border-blue"
-              style={{ border: "1px solid rgba(56,189,248,0.3)" }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "8px 18px",
+                borderRadius: 999,
+                background: "rgba(56,189,248,0.08)",
+                border: "1px solid rgba(56,189,248,0.35)",
+                boxShadow: "0 0 18px rgba(56,189,248,0.12)",
+                width: "fit-content",
+              }}
             >
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" style={{ background: "#38bdf8" }} />
-              <span className="text-sm font-medium" style={{ color: "#7dd3fc" }}>
+              {/* Pulsing ring + dot */}
+              <span style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 12, height: 12 }}>
+                <span style={{
+                  position: "absolute",
+                  width: 12, height: 12, borderRadius: "50%",
+                  background: "rgba(56,189,248,0.35)",
+                  animation: "ping 1.5s cubic-bezier(0,0,0.2,1) infinite",
+                }} />
+                <span style={{
+                  width: 7, height: 7, borderRadius: "50%",
+                  background: "#38bdf8",
+                  boxShadow: "0 0 6px #38bdf8",
+                  display: "block",
+                  flexShrink: 0,
+                }} />
+              </span>
+              <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "#7dd3fc", letterSpacing: "0.01em" }}>
                 Available for opportunities
               </span>
             </motion.div>
 
-            {/* Headline */}
-            <div className="space-y-6">
+            {/* Headline block — greeting + name tightly grouped */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+
+              {/* Hi there */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-lg font-medium"
-                style={{ color: "#94a3b8" }}
+                style={{ fontSize: "1.125rem", fontWeight: 600, color: "#cbd5e1", letterSpacing: "0.01em" }}
               >
                 Hi there, I&apos;m 👋
               </motion.p>
 
+              {/* Name */}
               <motion.h1
                 initial="hidden"
                 animate="visible"
@@ -218,12 +245,21 @@ export default function Hero() {
                   visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } },
                   hidden: {}
                 }}
-                className="text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-snug flex flex-wrap gap-x-4"
+                style={{
+                  fontSize: "clamp(2.5rem, 6vw, 4.25rem)",
+                  fontWeight: 800,
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.02em",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  rowGap: "0.4rem",
+                  columnGap: "0.8rem",
+                }}
               >
                 {/* Typing effect for "Pankaja" */}
                 <span style={{ color: "#f1f5f9", display: "flex" }}>
                   {"Pankaja".split("").map((char, i) => (
-                    <motion.span key={`p-${i}`} variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}>
+                    <motion.span key={`p-${i}`} variants={{ hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
                       {char}
                     </motion.span>
                   ))}
@@ -232,31 +268,31 @@ export default function Hero() {
                 {/* Typing effect for "Yunidu" */}
                 <span className="text-gradient" style={{ display: "flex" }}>
                   {"Yunidu".split("").map((char, i) => (
-                    <motion.span key={`y-${i}`} variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}>
+                    <motion.span key={`y-${i}`} variants={{ hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
                       {char}
                     </motion.span>
                   ))}
                 </span>
               </motion.h1>
 
+              {/* Role */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.35 }}
               >
-                <p className="text-xl lg:text-2xl font-semibold leading-relaxed" style={{ color: "#cbd5e1" }}>
+                <p style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", fontWeight: 600, color: "#cbd5e1", lineHeight: 1.5 }}>
                   Data Science Student &amp;{" "}
                   <span className="text-gradient">Full-Stack Developer</span>
                 </p>
               </motion.div>
             </div>
-
             {/* Description - Beautifully readable, search-engine accessible paragraph */}
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45 }}
-              style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7, maxWidth: "42rem" }}
+              style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7, maxWidth: "42rem", marginTop: "-0.75rem" }}
             >
               A passionate tech enthusiast specializing in{" "}
               <span style={{ color: "#7dd3fc", fontWeight: 600 }}>Machine Learning</span>,{" "}
@@ -300,7 +336,7 @@ export default function Hero() {
               </ul>
             </motion.div>
 
-            <br />
+
 
             {/* Stats Row — Extremely clean, simple, small, and responsive */}
             <motion.div
@@ -311,8 +347,8 @@ export default function Hero() {
               style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
             >
               {[
-                { label: "Projects Built", value: "10+", icon: "🚀", color: "#38bdf8" },
-                { label: "Certifications", value: "5+", icon: "🏆", color: "#fb923c" },
+                { label: "Projects Built", value: "5+", icon: "🚀", color: "#38bdf8" },
+                { label: "Certifications", value: "4+", icon: "🏆", color: "#fb923c" },
                 { label: "Tech Stack", value: "15+", icon: "⚡", color: "#22d3ee" },
               ].map((stat, idx) => (
                 <div key={stat.label} className="flex items-center gap-3">

@@ -331,7 +331,7 @@ function CertCard({ cert, idx }: { cert: Cert; idx: number }) {
 /* ── Section ── */
 export default function Certifications() {
   return (
-    <section id="certifications" className="section-padding relative overflow-hidden">
+    <section id="certifications" className="section-padding scroll-mt-24 relative overflow-hidden">
 
       {/* Section ambient blobs */}
       <div style={{

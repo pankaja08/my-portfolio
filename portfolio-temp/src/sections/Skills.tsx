@@ -495,7 +495,7 @@ export default function Skills() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="section-padding"
+      className="section-padding scroll-mt-24"
       style={{ position: "relative", overflow: "hidden" }}
     >
       {/* Anti-gravity background — pointerEvents:none so cards still receive clicks */}

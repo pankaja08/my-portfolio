@@ -133,7 +133,7 @@ const colorMap: Record<string, { badge: string; dot: string; border: string; glo
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-padding">
+    <section id="experience" className="section-padding scroll-mt-24">
       <div style={{ maxWidth: "64rem", margin: "0 auto", width: "100%" }}>
         {/* Header */}
         <motion.div

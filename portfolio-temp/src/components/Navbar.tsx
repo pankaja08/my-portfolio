@@ -27,7 +27,7 @@ export default function Navbar() {
       const sections = navLinks.map((l) => l.href.slice(1));
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 130) {
+        if (el && window.scrollY >= el.offsetTop - 185) {
           setActive(`#${id}`);
           break;
         }

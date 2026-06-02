@@ -58,7 +58,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 170px;
+}
+
+/* Ensure section anchor scrolling is perfectly offset below the fixed navbar */
+section[id] {
+  scroll-margin-top: 170px !important;
 }
 
 body {
@@ -277,7 +282,8 @@ body {
 
 .proj-github-btn:hover {
   border-color: transparent;
-  color: #fff;
+  /* Text switches to dark card-bg color so it reads clearly on the gradient fill */
+  color: #111827;
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.45), 0 0 40px rgba(129, 140, 248, 0.2);
 }
 
@@ -320,6 +326,83 @@ body {
   opacity: 0.55;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+/* ─── "See More" GitHub Tooltip Button ─────────────────────── */
+.gh-tooltip-container {
+  position: relative;
+  font-size: 17px;
+  padding: 1rem 0;
+  width: fit-content;
+  --tooltip-bg: #fff;
+  --tooltip-color: #303030;
+  --margin: 0.6rem;
+}
+
+.gh-tooltip-text {
+  z-index: 9;
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  color: #0f172a;
+  padding: 0.65em 1.8em;
+  border-radius: 0.85rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 18px 4px rgba(56,189,248,0.18);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  text-decoration: none;
+  transition:
+    box-shadow 0.4s ease-in-out,
+    transform 0.2s cubic-bezier(0.06, 0.37, 0.3, 0.92);
+}
+
+.gh-tooltip-container:hover .gh-tooltip-text {
+  transform: scale(1.07);
+  box-shadow:
+    0px 8px 32px 12px rgba(129,140,248,0.35),
+    0px -2px 8px 2px rgba(56,189,248,0.3);
+}
+
+.gh-tooltip {
+  position: absolute;
+  top: calc(-1 * var(--margin));
+  left: 50%;
+  transform: translateX(-50%) translateY(0%) scale(0);
+  padding: 0.35em 0.8em;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: all 0.38s cubic-bezier(0.07, 1.17, 0.44, 1.41);
+  background: var(--tooltip-bg);
+  color: var(--tooltip-color);
+  border-radius: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 99999;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+.gh-tooltip::before {
+  position: absolute;
+  content: '';
+  height: 0.6em;
+  width: 0.6em;
+  bottom: -0.2em;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  background: var(--tooltip-bg);
+  border-bottom-right-radius: 0.175rem;
+}
+
+.gh-tooltip-container:hover .gh-tooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(-100%) scale(1);
 }
 
 /* featured card — wider image */
@@ -380,24 +463,24 @@ body {
 }
 
 .section-padding {
-  padding: 4rem 1.25rem;
+  padding: 6.5rem 1.25rem 4rem; /* Elegant top padding to clear fixed navbar beautifully on mobile */
 }
 
 @media (min-width: 640px) {
   .section-padding {
-    padding: 5rem 1.5rem;
+    padding: 7.5rem 1.5rem 5rem;
   }
 }
 
 @media (min-width: 768px) {
   .section-padding {
-    padding: 7rem 2rem;
+    padding: 9rem 2rem 7rem;
   }
 }
 
 @media (min-width: 1024px) {
   .section-padding {
-    padding: 8rem 3rem;
+    padding: 10rem 3rem 8rem;
   }
 }
 
@@ -466,6 +549,10 @@ body {
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-16px); }
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
 }
 
 @keyframes shimmer {
@@ -841,6 +928,44 @@ body {
   .timeline-item.right .timeline-connector {
     left: 0;
     background: linear-gradient(to right, var(--connector-color, rgba(56,189,248,0.8)), transparent);
+  }
+}
+
+/* ─── Fully Responsive Hero Container ───────────────────────── */
+.hero-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+  .hero-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 5.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 6.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
   }
 }
 

@@ -178,7 +178,7 @@ function ProjectCard({
 /* ─── Section ──────────────────────────────────────────────── */
 export default function Projects() {
   return (
-    <section id="projects" className="section-padding">
+    <section id="projects" className="section-padding scroll-mt-24">
       <div style={{ maxWidth: "80rem", margin: "0 auto", width: "100%" }}>
 
         {/* Header */}
@@ -262,27 +262,48 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* More on GitHub */}
+        {/* ── "See More on GitHub" tooltip button ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-12"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1rem",
+            marginTop: "4rem",
+            paddingTop: "3rem",
+            borderTop: "1px solid rgba(255,255,255,0.07)",
+          }}
         >
-          <a
-            href="https://github.com/pankaja08"
-            target="_blank"
-            rel="noopener noreferrer"
-            id="github-all-projects"
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-xl glass border border-white/15
-              hover:border-sky-400/40 hover:bg-white/8 transition-all duration-200
-              text-sm font-semibold text-slate-300 hover:text-white"
-          >
-            <GithubIcon size={18} />
-            See all projects on GitHub
-          </a>
+          <p style={{ fontSize: "0.8rem", color: "#475569", letterSpacing: "0.05em" }}>
+            Want to see more work?
+          </p>
+
+          {/* Tooltip container */}
+          <div className="gh-tooltip-container">
+            {/* Tooltip pop-up */}
+            <span className="gh-tooltip">
+              👤 @pankaja08
+            </span>
+
+            {/* The button itself */}
+            <a
+              href="https://github.com/pankaja08"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="github-all-projects"
+              className="gh-tooltip-text"
+              aria-label="View all projects on GitHub @pankaja08"
+            >
+              <GithubIcon size={18} />
+              See all projects on GitHub
+            </a>
+          </div>
         </motion.div>
+
       </div>
     </section>
   );
