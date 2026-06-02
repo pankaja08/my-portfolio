@@ -170,14 +170,14 @@ export default function Navbar() {
             <a
               href="/E.D. Pankaja yunidu.pdf"
               download
-              className="hidden md:flex cv-shimmer-btn"
+              className="!hidden md:!flex cv-shimmer-btn"
             >
               <Download size={14} style={{ flexShrink: 0 }} />
               <span>Download CV</span>
             </a>
 
             <button
-              className="md:hidden nav-mobile-btn"
+              className="md:!hidden nav-mobile-btn"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >

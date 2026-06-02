@@ -21,7 +21,7 @@ function HeroVisual() {
 
   return (
     <div className="relative flex items-center justify-center w-full h-full select-none">
-      <div className="hero-visual-scaler flex items-center justify-center relative w-[480px] h-[480px]">
+      <div className="hero-visual-scaler flex items-center justify-center relative w-[280px] h-[280px] min-[375px]:w-[320px] min-[375px]:h-[320px] sm:w-[480px] sm:h-[480px]">
         {/* Outer ambient glow */}
         <div style={{
           position: "absolute",
