@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Users, Brain, Car, Leaf, Stethoscope } from "lucide-react";
 import { GithubIcon } from "@/components/SocialIcons";
+import Image from "next/image";
 
 /* ─── Project data ─────────────────────────────────────────── */
 const projects = [
@@ -108,7 +109,13 @@ function ProjectCard({
     >
       {/* Image */}
       <div className="proj-card__img-wrap">
-        <img src={project.image} alt={project.title} loading="lazy" />
+        <Image 
+          src={project.image} 
+          alt={project.title} 
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectFit: 'cover' }}
+        />
         <div className="proj-card__img-overlay" />
 
         {/* Floating badge */}

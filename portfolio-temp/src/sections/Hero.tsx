@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Download, ArrowDown } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 // Animated data-science themed floating orb visual — no external 3D dependency
 function HeroVisual() {
@@ -165,6 +166,8 @@ function HeroVisual() {
 }
 
 export default function Hero() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
     <section
       id="about"
@@ -374,7 +377,21 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
             className="lg:col-span-5 relative h-[300px] sm:h-[400px] lg:h-[540px] flex items-center justify-center"
           >
-            <HeroVisual />
+            {!isMobile ? <HeroVisual /> : (
+              <div style={{
+                width: 160,
+                height: 160,
+                borderRadius: "50%",
+                background: "radial-gradient(circle at 35% 35%, rgba(56,189,248,0.5) 0%, rgba(99,102,241,0.5) 50%, rgba(14,165,233,0.3) 100%)",
+                boxShadow: "0 0 40px rgba(56,189,248,0.5), 0 0 80px rgba(99,102,241,0.3), inset 0 0 40px rgba(255,255,255,0.1)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <span style={{ fontSize: 40 }}>💡</span>
+              </div>
+            )}
           </motion.div>
         </div>
 

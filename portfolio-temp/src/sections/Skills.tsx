@@ -3,6 +3,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Brain, Server, Layout, Settings2 } from "lucide-react";
 import { ElementType } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 /* ────────────────────────────────────────────────
    INLINE SVG TECH ICONS
@@ -153,7 +154,10 @@ function AntiGravityBackground({
   const [mounted, setMounted] = useState(false);
 
   // Only render on client — prevents SSR hydration mismatch
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    // eslint-disable-next-line
+    setMounted(true);
+  }, []);
 
   // RAF loop: lerp the mask toward the cursor, set opacity
   useEffect(() => {
@@ -476,6 +480,7 @@ export default function Skills() {
   // Shared refs — written by section's onMouseMove, read by AntiGravityBackground's RAF
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const activeRef = useRef(false);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const rect = sectionRef.current?.getBoundingClientRect();
@@ -499,7 +504,7 @@ export default function Skills() {
       style={{ position: "relative", overflow: "hidden" }}
     >
       {/* Anti-gravity background — pointerEvents:none so cards still receive clicks */}
-      <AntiGravityBackground mouseRef={mouseRef} activeRef={activeRef} />
+      {!isMobile && <AntiGravityBackground mouseRef={mouseRef} activeRef={activeRef} />}
 
       {/* Ambient blobs */}
       <div style={{
