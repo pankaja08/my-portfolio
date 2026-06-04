@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Download, ArrowDown } from "lucide-react";
+import { ExternalLink, ArrowDown } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -312,12 +312,13 @@ export default function Hero() {
             >
               <a
                 href="/E.D. Pankaja yunidu.pdf"
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="cv-shimmer-btn"
                 style={{ padding: "12px 24px", fontSize: "14px" }}
               >
-                <Download size={18} />
-                <span>Download CV</span>
+                <ExternalLink size={18} />
+                <span>View CV</span>
               </a>
 
               {/* Animated Social Wrapper */}
@@ -351,7 +352,7 @@ export default function Hero() {
             >
               {[
                 { label: "Projects Built", value: "5+", icon: "🚀", color: "#38bdf8" },
-                { label: "Certifications", value: "4+", icon: "🏆", color: "#fb923c" },
+                { label: "Certifications", value: "5+", icon: "🏆", color: "#fb923c" },
                 { label: "Tech Stack", value: "15+", icon: "⚡", color: "#22d3ee" },
               ].map((stat, idx) => (
                 <div key={stat.label} className="flex items-center gap-3">

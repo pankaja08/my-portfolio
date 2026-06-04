@@ -7,6 +7,7 @@ import {
   Network,
   ArrowRight,
   Award,
+  BarChart2,
 } from "lucide-react";
 import { ElementType } from "react";
 
@@ -19,6 +20,7 @@ interface Cert {
   tag: string;
   credentialUrl: string;
   Icon: ElementType;
+  skills: string[];
   color: {
     icon: string;          // icon fill colour
     iconBg: string;        // icon wrapper bg  (rgba)
@@ -35,72 +37,7 @@ interface Cert {
 }
 
 const certifications: Cert[] = [
-  {
-    id: "cert-uiux",
-    name: "UI/UX with Freelancing",
-    issuer: "IT Guru Global",
-    period: "Nov 2024 – Feb 2025",
-    tag: "Design",
-    credentialUrl: "#",
-    Icon: PenTool,
-    color: {
-      icon: "#a78bfa",
-      iconBg: "rgba(139,92,246,0.12)",
-      iconBorder: "rgba(139,92,246,0.25)",
-      badge: "#c084fc",
-      badgeBg: "rgba(192,132,252,0.1)",
-      badgeBorder: "rgba(192,132,252,0.2)",
-      hoverBorder: "rgba(168,85,247,0.4)",
-      shadow: "0 0 35px rgba(168,85,247,0.18), 0 20px 40px rgba(0,0,0,0.4)",
-      gradientBlob: "radial-gradient(circle, rgba(139,92,246,0.28) 0%, rgba(192,132,252,0.12) 50%, transparent 70%)",
-      divider: "rgba(139,92,246,0.25)",
-      linkHover: "#c084fc",
-    },
-  },
-  {
-    id: "cert-photoshop",
-    name: "Adobe Photoshop — Basic to Advanced",
-    issuer: "Master.LK",
-    period: "2024",
-    tag: "Creative",
-    credentialUrl: "#",
-    Icon: Layers,
-    color: {
-      icon: "#fb923c",
-      iconBg: "rgba(251,146,60,0.12)",
-      iconBorder: "rgba(251,146,60,0.25)",
-      badge: "#fb923c",
-      badgeBg: "rgba(251,146,60,0.1)",
-      badgeBorder: "rgba(251,146,60,0.2)",
-      hoverBorder: "rgba(251,146,60,0.4)",
-      shadow: "0 0 35px rgba(251,146,60,0.18), 0 20px 40px rgba(0,0,0,0.4)",
-      gradientBlob: "radial-gradient(circle, rgba(251,146,60,0.28) 0%, rgba(244,63,94,0.12) 50%, transparent 70%)",
-      divider: "rgba(251,146,60,0.25)",
-      linkHover: "#fb923c",
-    },
-  },
-  {
-    id: "cert-ditec",
-    name: "Assured Diploma in IT (DITEC)",
-    issuer: "Esoft Metro Campus",
-    period: "Nov 2021",
-    tag: "IT",
-    credentialUrl: "#",
-    Icon: Monitor,
-    color: {
-      icon: "#38bdf8",
-      iconBg: "rgba(56,189,248,0.12)",
-      iconBorder: "rgba(56,189,248,0.25)",
-      badge: "#38bdf8",
-      badgeBg: "rgba(56,189,248,0.1)",
-      badgeBorder: "rgba(56,189,248,0.2)",
-      hoverBorder: "rgba(56,189,248,0.4)",
-      shadow: "0 0 35px rgba(56,189,248,0.18), 0 20px 40px rgba(0,0,0,0.4)",
-      gradientBlob: "radial-gradient(circle, rgba(56,189,248,0.28) 0%, rgba(34,211,238,0.12) 50%, transparent 70%)",
-      divider: "rgba(56,189,248,0.25)",
-      linkHover: "#38bdf8",
-    },
-  },
+  // ── Jun 2026 ──────────────────────────────────────────────
   {
     id: "cert-cisco-ds",
     name: "Introduction to Data Science",
@@ -109,6 +46,7 @@ const certifications: Cert[] = [
     tag: "Data Science",
     credentialUrl: "https://www.credly.com/badges/56a417da-9a73-4dff-bccc-b8cc4ee7cf5f/linked_in?t=tg2on1",
     Icon: Network,
+    skills: ["Python", "Data Analysis", "Machine Learning", "Statistics", "SQL", "Data Wrangling"],
     color: {
       icon: "#22d3ee",
       iconBg: "rgba(34,211,238,0.12)",
@@ -123,7 +61,103 @@ const certifications: Cert[] = [
       linkHover: "#22d3ee",
     },
   },
+  {
+    id: "cert-kaggle-dataviz",
+    name: "Data Visualization",
+    issuer: "Kaggle",
+    period: "Jun 2026",
+    tag: "Data Science",
+    credentialUrl: "https://www.kaggle.com/learn/certification/pankajayunidu/data-visualization",
+    Icon: BarChart2,
+    skills: ["Python", "Matplotlib", "Seaborn", "Data Visualization", "Pandas", "Plotting"],
+    color: {
+      icon: "#4ade80",
+      iconBg: "rgba(74,222,128,0.12)",
+      iconBorder: "rgba(74,222,128,0.25)",
+      badge: "#4ade80",
+      badgeBg: "rgba(74,222,128,0.1)",
+      badgeBorder: "rgba(74,222,128,0.2)",
+      hoverBorder: "rgba(74,222,128,0.4)",
+      shadow: "0 0 35px rgba(74,222,128,0.18), 0 20px 40px rgba(0,0,0,0.4)",
+      gradientBlob: "radial-gradient(circle, rgba(74,222,128,0.28) 0%, rgba(34,197,94,0.12) 50%, transparent 70%)",
+      divider: "rgba(74,222,128,0.25)",
+      linkHover: "#4ade80",
+    },
+  },
+  // ── Nov 2024 – Feb 2025 ───────────────────────────────────
+  {
+    id: "cert-uiux",
+    name: "UI/UX with Freelancing",
+    issuer: "IT Guru Global",
+    period: "Nov 2024 – Feb 2025",
+    tag: "Design",
+    credentialUrl: "#",
+    Icon: PenTool,
+    skills: ["Figma", "UI Design", "UX Research", "Prototyping", "Wireframing", "Freelancing"],
+    color: {
+      icon: "#a78bfa",
+      iconBg: "rgba(139,92,246,0.12)",
+      iconBorder: "rgba(139,92,246,0.25)",
+      badge: "#c084fc",
+      badgeBg: "rgba(192,132,252,0.1)",
+      badgeBorder: "rgba(192,132,252,0.2)",
+      hoverBorder: "rgba(168,85,247,0.4)",
+      shadow: "0 0 35px rgba(168,85,247,0.18), 0 20px 40px rgba(0,0,0,0.4)",
+      gradientBlob: "radial-gradient(circle, rgba(139,92,246,0.28) 0%, rgba(192,132,252,0.12) 50%, transparent 70%)",
+      divider: "rgba(139,92,246,0.25)",
+      linkHover: "#c084fc",
+    },
+  },
+  // ── 2024 ──────────────────────────────────────────────────
+  {
+    id: "cert-photoshop",
+    name: "Adobe Photoshop — Basic to Advanced",
+    issuer: "Master.LK",
+    period: "2024",
+    tag: "Creative",
+    credentialUrl: "#",
+    Icon: Layers,
+    skills: ["Adobe Photoshop", "Photo Editing", "Digital Art", "Color Theory", "Compositing", "Retouching"],
+    color: {
+      icon: "#fb923c",
+      iconBg: "rgba(251,146,60,0.12)",
+      iconBorder: "rgba(251,146,60,0.25)",
+      badge: "#fb923c",
+      badgeBg: "rgba(251,146,60,0.1)",
+      badgeBorder: "rgba(251,146,60,0.2)",
+      hoverBorder: "rgba(251,146,60,0.4)",
+      shadow: "0 0 35px rgba(251,146,60,0.18), 0 20px 40px rgba(0,0,0,0.4)",
+      gradientBlob: "radial-gradient(circle, rgba(251,146,60,0.28) 0%, rgba(244,63,94,0.12) 50%, transparent 70%)",
+      divider: "rgba(251,146,60,0.25)",
+      linkHover: "#fb923c",
+    },
+  },
+  // ── Nov 2021 ──────────────────────────────────────────────
+  {
+    id: "cert-ditec",
+    name: "Assured Diploma in IT (DITEC)",
+    issuer: "Esoft Metro Campus",
+    period: "Nov 2021",
+    tag: "IT",
+    credentialUrl: "#",
+    Icon: Monitor,
+    skills: ["Computer Fundamentals", "Networking", "Web Design", "Databases", "Programming", "MS Office"],
+    color: {
+      icon: "#38bdf8",
+      iconBg: "rgba(56,189,248,0.12)",
+      iconBorder: "rgba(56,189,248,0.25)",
+      badge: "#38bdf8",
+      badgeBg: "rgba(56,189,248,0.1)",
+      badgeBorder: "rgba(56,189,248,0.2)",
+      hoverBorder: "rgba(56,189,248,0.4)",
+      shadow: "0 0 35px rgba(56,189,248,0.18), 0 20px 40px rgba(0,0,0,0.4)",
+      gradientBlob: "radial-gradient(circle, rgba(56,189,248,0.28) 0%, rgba(34,211,238,0.12) 50%, transparent 70%)",
+      divider: "rgba(56,189,248,0.25)",
+      linkHover: "#38bdf8",
+    },
+  },
 ];
+
 
 /* ── Single card ── */
 function CertCard({ cert, idx }: { cert: Cert; idx: number }) {
@@ -147,7 +181,6 @@ function CertCard({ cert, idx }: { cert: Cert; idx: number }) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: 340,
         padding: "1.5rem",
         position: "relative",
         overflow: "hidden",
@@ -215,7 +248,7 @@ function CertCard({ cert, idx }: { cert: Cert; idx: number }) {
       <div style={{ position: "relative", zIndex: 10 }}>
 
         {/* Row 1: icon + tag badge */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
 
           {/* Vector icon in soft circle */}
           <div
@@ -261,7 +294,7 @@ function CertCard({ cert, idx }: { cert: Cert; idx: number }) {
             fontWeight: 800,
             lineHeight: 1.4,
             color: "#f1f5f9",
-            marginBottom: "0.5rem",
+            marginBottom: "0.4rem",
             transition: "color 0.3s ease",
           }}
         >
@@ -269,14 +302,36 @@ function CertCard({ cert, idx }: { cert: Cert; idx: number }) {
         </h3>
 
         {/* Issuer */}
-        <p style={{ fontSize: "0.75rem", fontWeight: 500, color: "#94a3b8", marginBottom: "0.3rem" }}>
+        <p style={{ fontSize: "0.75rem", fontWeight: 500, color: "#94a3b8", marginBottom: "0.25rem" }}>
           {cert.issuer}
         </p>
 
         {/* Period */}
-        <p style={{ fontSize: "0.68rem", color: "#64748b", fontFamily: "monospace", letterSpacing: "0.04em" }}>
+        <p style={{ fontSize: "0.68rem", color: "#64748b", fontFamily: "monospace", letterSpacing: "0.04em", marginBottom: "1rem" }}>
           {cert.period}
         </p>
+
+        {/* ── Skills chips ── */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+          {cert.skills.map((skill) => (
+            <span
+              key={skill}
+              style={{
+                fontSize: "0.6rem",
+                fontWeight: 600,
+                padding: "3px 8px",
+                borderRadius: 999,
+                background: `${color.icon}18`,
+                border: `1px solid ${color.icon}35`,
+                color: color.icon,
+                letterSpacing: "0.02em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* ── FOOTER ── */}
@@ -285,6 +340,7 @@ function CertCard({ cert, idx }: { cert: Cert; idx: number }) {
           position: "relative",
           zIndex: 10,
           paddingTop: "1rem",
+          marginTop: "1rem",
           borderTop: `1px solid ${color.divider}`,
         }}
       >
@@ -378,10 +434,10 @@ export default function Certifications() {
           </h2>
         </motion.div>
 
-        {/* ── Responsive portrait grid: 1 col → 2 col → 4 col ── */}
+        {/* ── Responsive grid: 1 col → 2 col → 3 col → 5 col ── */}
         <div
           style={{ display: "grid", gap: "1.25rem" }}
-          className="grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
+          className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
         >
           {certifications.map((cert, idx) => (
             <CertCard key={cert.id} cert={cert} idx={idx} />

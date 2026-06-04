@@ -226,7 +226,8 @@ export default function Footer() {
             {/* CV download */}
             <a
               href="/E.D. Pankaja yunidu.pdf"
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 7,
                 padding: "8px 16px", borderRadius: 10,
@@ -246,7 +247,7 @@ export default function Footer() {
               }}
             >
               <ExternalLink size={13} />
-              Download CV
+              View CV
             </a>
           </div>
         </div>

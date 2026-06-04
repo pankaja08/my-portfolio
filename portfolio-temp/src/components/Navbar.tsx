@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User, Zap, Briefcase, FolderOpen, Award, Mail,
-  Download, Menu, X, ChevronDown,
+  ExternalLink, Menu, X, ChevronDown,
 } from "lucide-react";
 
 const navLinks = [
@@ -169,11 +169,12 @@ export default function Navbar() {
           <div style={{ display: "flex", flex: 1, justifyContent: "flex-end", alignItems: "center", gap: 12 }}>
             <a
               href="/E.D. Pankaja yunidu.pdf"
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               className="!hidden md:!flex cv-shimmer-btn"
             >
-              <Download size={14} style={{ flexShrink: 0 }} />
-              <span>Download CV</span>
+              <ExternalLink size={14} style={{ flexShrink: 0 }} />
+              <span>View CV</span>
             </a>
 
             <button
@@ -268,13 +269,14 @@ export default function Navbar() {
             <div style={{ marginTop: 10, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
               <a
                 href="/E.D. Pankaja yunidu.pdf"
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
                 className="cv-shimmer-btn"
                 style={{ width: "100%", justifyContent: "center" }}
               >
-                <Download size={14} />
-                Download CV
+                <ExternalLink size={14} />
+                View CV
               </a>
             </div>
           </motion.div>
