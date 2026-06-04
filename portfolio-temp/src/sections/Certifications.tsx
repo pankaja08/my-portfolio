@@ -107,7 +107,7 @@ const certifications: Cert[] = [
     issuer: "Cisco Networking Academy",
     period: "Jun 2026",
     tag: "Data Science",
-    credentialUrl: "https://www.credly.com/badges",
+    credentialUrl: "https://www.credly.com/badges/56a417da-9a73-4dff-bccc-b8cc4ee7cf5f/linked_in?t=tg2on1",
     Icon: Network,
     color: {
       icon: "#22d3ee",
