@@ -122,7 +122,7 @@ const featuredProjects: FeaturedProject[] = [
       { name: "Expo EAS" },
     ],
     github: "https://github.com/pankaja08/Govi_Connect_Mobile",
-    image: "/proj_goviconnect_iphone.png",
+    image: "/proj_goviconnect_mobile.png",
     imageAlt: "GoviConnect Mobile App — iPhone 15 Pro product mockup",
     mockupType: "promo",
     reversed: true,
