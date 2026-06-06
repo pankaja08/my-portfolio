@@ -162,7 +162,7 @@ const featuredProjects: FeaturedProject[] = [
     github: "https://github.com/pankaja08/Loan-Prediction-Model-AIML-",
     image: "/proj_loan_prediction.png",
     imageAlt: "Loan prediction ML dashboard",
-    mockupType: "browser",
+    mockupType: "promo",
     reversed: false,
   },
   {
