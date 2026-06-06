@@ -9,7 +9,7 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjrevwy";
 type FormState = "idle" | "loading" | "success" | "error";
 
 /* ─── Interactive SVG Robot ────────────────────────────────── */
-function RobotBot({ isTyping }: { isTyping: boolean }) {
+function RobotBot({ isTyping, isSuccess }: { isTyping: boolean; isSuccess?: boolean }) {
   return (
     <motion.div
       animate={{ y: [0, -12, 0] }}
@@ -37,7 +37,7 @@ function RobotBot({ isTyping }: { isTyping: boolean }) {
 
         {/* Robot head — physically turns left and angles down toward form when typing */}
         <motion.g
-          animate={isTyping ? { x: -12, rotate: -6, y: 2 } : { x: 0, rotate: 0, y: 0 }}
+          animate={isSuccess ? { x: 0, rotate: 0, y: -4 } : isTyping ? { x: -12, rotate: -6, y: 2 } : { x: 0, rotate: 0, y: 0 }}
           transition={{ type: "spring", stiffness: 180, damping: 18 }}
         >
           {/* Left ear */}
@@ -56,7 +56,7 @@ function RobotBot({ isTyping }: { isTyping: boolean }) {
 
           {/* EYES — aggressively drag pupils left toward form when typing */}
           <motion.g
-            animate={isTyping ? { x: -16, y: 4, scaleY: 0.9 } : { x: 0, y: 0, scaleY: 1 }}
+            animate={isSuccess ? { x: 0, y: 4, scaleY: 0.2 } : isTyping ? { x: -16, y: 4, scaleY: 0.9 } : { x: 0, y: 0, scaleY: 1 }}
             transition={{ type: "spring", stiffness: 220, damping: 14 }}
           >
             {/* Left eye outer glow */}
@@ -81,15 +81,16 @@ function RobotBot({ isTyping }: { isTyping: boolean }) {
           {/* Mouth — compresses and shifts left: focused/analytical expression */}
           {/* Wrap in motion.g so scaleX works on SVG (can't animate on path directly) */}
           <motion.g
-            animate={isTyping ? { scaleX: 0.6, x: -4, opacity: 0.9 } : { scaleX: 1, x: 0, opacity: 0.4 }}
+            animate={isSuccess ? { scaleX: 1, x: 0, opacity: 1 } : isTyping ? { scaleX: 0.6, x: -4, opacity: 0.9 } : { scaleX: 1, x: 0, opacity: 0.4 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             style={{ originX: "100px", originY: "102px" }}
           >
-            <path
-              d="M85 102 H115"
-              stroke="#22d3ee"
+            <motion.path
+              animate={{ d: isSuccess ? "M85 96 Q100 118 115 96" : "M85 102 Q100 102 115 102" }}
+              stroke={isSuccess ? "#34d399" : "#22d3ee"}
               strokeWidth="3"
               strokeLinecap="round"
+              fill="none"
             />
           </motion.g>
 
@@ -516,13 +517,17 @@ export default function Contact() {
               pointerEvents: "none",
             }} />
 
-            <RobotBot isTyping={isTyping} />
+            <RobotBot isTyping={isTyping} isSuccess={formState === "success"} />
 
             {/* Status chip */}
             <motion.div
-              animate={isTyping
-                ? { borderColor: "rgba(34,211,238,0.4)", boxShadow: "0 0 16px rgba(34,211,238,0.2)" }
-                : { borderColor: "rgba(255,255,255,0.06)", boxShadow: "none" }}
+              animate={
+                formState === "success"
+                  ? { borderColor: "rgba(52,211,153,0.4)", boxShadow: "0 0 16px rgba(52,211,153,0.2)" }
+                  : isTyping
+                  ? { borderColor: "rgba(34,211,238,0.4)", boxShadow: "0 0 16px rgba(34,211,238,0.2)" }
+                  : { borderColor: "rgba(255,255,255,0.06)", boxShadow: "none" }
+              }
               transition={{ duration: 0.4 }}
               style={{
                 marginTop: "1.5rem",
@@ -535,24 +540,44 @@ export default function Contact() {
             >
               <span style={{
                 width: 7, height: 7, borderRadius: "50%",
-                background: isTyping ? "#22d3ee" : "rgba(99,102,241,0.6)",
+                background: formState === "success" ? "#34d399" : isTyping ? "#22d3ee" : "rgba(99,102,241,0.6)",
                 display: "block",
-                boxShadow: isTyping ? "0 0 6px #22d3ee" : "none",
+                boxShadow: formState === "success" ? "0 0 6px #34d399" : isTyping ? "0 0 6px #22d3ee" : "none",
                 transition: "all 0.4s ease",
               }} />
               <span style={{
                 fontSize: "0.65rem", fontFamily: "monospace", letterSpacing: "0.1em",
-                textTransform: "uppercase", color: isTyping ? "#94a3b8" : "#475569",
+                textTransform: "uppercase",
+                color: formState === "success" ? "#6ee7b7" : isTyping ? "#94a3b8" : "#475569",
                 transition: "color 0.3s ease",
               }}>
-                {isTyping ? "Bot: Tracking Input…" : "Bot: Idle · Watching"}
+                {formState === "success" ? "Bot: Happy · Received!" : isTyping ? "Bot: Tracking Input…" : "Bot: Idle · Watching"}
               </span>
             </motion.div>
 
             {/* Callout bubble */}
             <AnimatePresence>
-              {isTyping && (
+              {formState === "success" ? (
                 <motion.div
+                  key="success-bubble"
+                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.9 }}
+                  transition={{ duration: 0.25 }}
+                  style={{
+                    marginTop: "0.75rem",
+                    padding: "8px 16px", borderRadius: 10,
+                    background: "rgba(52,211,153,0.15)",
+                    border: "1px solid rgba(52,211,153,0.3)",
+                    fontSize: "0.72rem", color: "#6ee7b7", fontStyle: "italic",
+                    fontWeight: 600,
+                  }}
+                >
+                  🎉 Message received! You're awesome!
+                </motion.div>
+              ) : isTyping ? (
+                <motion.div
+                  key="typing-bubble"
                   initial={{ opacity: 0, y: 8, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.9 }}
@@ -567,7 +592,7 @@ export default function Contact() {
                 >
                   💬 I see you typing something!
                 </motion.div>
-              )}
+              ) : null}
             </AnimatePresence>
           </motion.div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import {
   ArrowUpRight,
@@ -819,6 +819,7 @@ function ProjectRow({ project, index }: { project: FeaturedProject; index: numbe
 
 /* ─── Main Section ───────────────────────────────────────────── */
 export default function Projects() {
+  const [isExpanded, setIsExpanded] = useState(false);
   return (
     <section id="projects" className="section-padding scroll-mt-24">
       {/* Section CSS injected once */}
@@ -948,12 +949,89 @@ export default function Projects() {
         </motion.div>
 
         {/* ── Featured Project Rows ── */}
-        {featuredProjects.map((project, idx) => (
-          <div key={project.id}>
-            <ProjectRow project={project} index={idx} />
-            {idx < featuredProjects.length - 1 && <div className="fp-row-divider" />}
-          </div>
-        ))}
+        <div key={featuredProjects[0].id}>
+          <ProjectRow project={featuredProjects[0]} index={0} />
+        </div>
+
+        {/* ── Collapsed Projects Container ── */}
+        <AnimatePresence initial={false}>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              style={{ overflow: "hidden" }}
+            >
+              <div className="fp-row-divider" style={{ marginTop: "-2rem" }} />
+              {featuredProjects.slice(1).map((project, idx) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, scale: 0.4, rotateX: 45, rotateZ: idx % 2 === 0 ? 8 : -8, y: 200 }}
+                  animate={{ opacity: 1, scale: 1, rotateX: 0, rotateZ: 0, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 100 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 110,
+                    damping: 10,
+                    mass: 1,
+                    delay: idx * 0.15,
+                  }}
+                  style={{ transformPerspective: 1200 }}
+                >
+                  <ProjectRow project={project} index={idx + 1} />
+                  {idx < featuredProjects.length - 2 && <div className="fp-row-divider" />}
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Expand/Collapse Button ── */}
+        <motion.div
+          layout
+          style={{ display: "flex", justifyContent: "center", marginTop: "1rem", marginBottom: "2rem" }}
+        >
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: "12px 24px", borderRadius: 999,
+              background: "rgba(14,165,233,0.1)",
+              border: "1px solid rgba(14,165,233,0.3)",
+              color: "#38bdf8", fontSize: "0.85rem", fontWeight: 700,
+              cursor: "pointer", transition: "all 0.3s ease",
+              letterSpacing: "0.05em", textTransform: "uppercase",
+              boxShadow: "0 0 20px rgba(14,165,233,0.15)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(14,165,233,0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 0 30px rgba(14,165,233,0.25)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(14,165,233,0.1)";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 0 20px rgba(14,165,233,0.15)";
+            }}
+          >
+            {isExpanded ? (
+              <>Hide Other Projects</>
+            ) : (
+              <>
+                Show All Projects
+                <span style={{
+                  background: "linear-gradient(135deg, #0ea5e9, #38bdf8)",
+                  color: "#fff", padding: "2px 8px", borderRadius: 12,
+                  fontSize: "0.7rem", marginLeft: 4, fontWeight: 800,
+                  boxShadow: "0 0 10px rgba(56,189,248,0.5)"
+                }}>
+                  +{featuredProjects.length - 1}
+                </span>
+              </>
+            )}
+          </button>
+        </motion.div>
 
         {/* ── See More on GitHub ── */}
         <motion.div

@@ -204,6 +204,7 @@ export default function Hero() {
                 border: "1px solid rgba(56,189,248,0.35)",
                 boxShadow: "0 0 18px rgba(56,189,248,0.12)",
                 width: "fit-content",
+                marginTop: "-1.5rem",
               }}
             >
               {/* Pulsing ring + dot */}
@@ -298,9 +299,9 @@ export default function Hero() {
               style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7, maxWidth: "42rem", marginTop: "-0.75rem" }}
             >
               A passionate tech enthusiast specializing in{" "}
-              <span style={{ color: "#7dd3fc", fontWeight: 600 }}>Machine Learning</span>,{" "}
-              <span style={{ color: "#a5b4fc", fontWeight: 600 }}>AI</span>, and{" "}
-              <span style={{ color: "#67e8f9", fontWeight: 600 }}>full-stack development</span>. Building intelligent systems that bridge data science and real-world applications.
+              <span style={{ color: "#7dd3fc", fontWeight: 600 }}>Data Science</span>,{" "}
+              <span style={{ color: "#a5b4fc", fontWeight: 600 }}>AI/ML</span>, and{" "}
+              <span style={{ color: "#67e8f9", fontWeight: 600 }}>Full-Stack Development</span>. Building intelligent systems that bridge data science and real-world applications.
             </motion.p>
 
             {/* Action Buttons */}
@@ -342,29 +343,35 @@ export default function Hero() {
 
 
 
-            {/* Stats Row — Extremely clean, simple, small, and responsive */}
+            {/* Stats Row — Clear Glass Cards */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
-              className="flex flex-wrap items-center gap-y-4 gap-x-8 pt-6 mt-8"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+              className="flex flex-wrap gap-4 pt-4 mt-6"
             >
               {[
                 { label: "Projects Built", value: "5+", icon: "🚀", color: "#38bdf8" },
                 { label: "Certifications", value: "5+", icon: "🏆", color: "#fb923c" },
                 { label: "Tech Stack", value: "15+", icon: "⚡", color: "#22d3ee" },
-              ].map((stat, idx) => (
-                <div key={stat.label} className="flex items-center gap-3">
-                  {idx > 0 && (
-                    <div className="hidden sm:block h-6 w-px bg-white/10 mr-4" />
-                  )}
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-xl" style={{ textShadow: `0 0 10px ${stat.color}44` }}>{stat.icon}</span>
-                    <div>
-                      <div className="text-lg font-extrabold text-white leading-none">{stat.value}</div>
-                      <div className="text-[11px] font-medium tracking-wide uppercase mt-0.5" style={{ color: "#64748b" }}>{stat.label}</div>
-                    </div>
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="flex items-center gap-3"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.03)",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    borderRadius: "16px",
+                    padding: "0.75rem 1.25rem",
+                    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  <span className="text-2xl" style={{ textShadow: `0 0 15px ${stat.color}66` }}>{stat.icon}</span>
+                  <div>
+                    <div className="text-lg font-extrabold text-white leading-none">{stat.value}</div>
+                    <div className="text-[11px] font-semibold tracking-wide uppercase mt-1.5" style={{ color: "#94a3b8" }}>{stat.label}</div>
                   </div>
                 </div>
               ))}
