@@ -1,6 +1,24 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import PageLoader from "@/components/PageLoader";
+
+// Self-hosted via next/font — zero render-blocking, no extra network round trip
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+  preload: true,
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+  preload: false, // Only preload primary font
+});
 
 export const metadata: Metadata = {
   title: "Pankaja Yunidu — Data Science & Full-Stack Developer Portfolio",
@@ -31,11 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="en" className={`scroll-smooth ${plusJakarta.variable} ${inter.variable}`}>
       <body className="antialiased">
         {/* Full-screen "Generating…" loader on every page load/reload */}
         <PageLoader />

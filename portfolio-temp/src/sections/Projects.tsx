@@ -84,7 +84,7 @@ const featuredProjects: FeaturedProject[] = [
       { name: "RESTful APIs" },
     ],
     github: "https://github.com/pankaja08/Govi_Connect_Web",
-    image: "/proj_goviconnect_promo.png",
+    image: "/proj_goviconnect_promo.webp",
     imageAlt: "GoviConnect Smart Agriculture Platform promotional overview",
     mockupType: "promo",
     reversed: false,
@@ -122,7 +122,7 @@ const featuredProjects: FeaturedProject[] = [
       { name: "Expo EAS" },
     ],
     github: "https://github.com/pankaja08/Govi_Connect_Mobile",
-    image: "/proj_goviconnect_mobile.png",
+    image: "/proj_goviconnect_mobile.webp",
     imageAlt: "GoviConnect Mobile App — iPhone 15 Pro product mockup",
     mockupType: "promo",
     reversed: true,
@@ -160,7 +160,7 @@ const featuredProjects: FeaturedProject[] = [
       { name: "Seaborn" },
     ],
     github: "https://github.com/pankaja08/Loan-Prediction-Model-AIML-",
-    image: "/proj_loan_prediction.png",
+    image: "/proj_loan_prediction.webp",
     imageAlt: "Loan prediction ML dashboard",
     mockupType: "promo",
     reversed: false,
@@ -197,7 +197,7 @@ const featuredProjects: FeaturedProject[] = [
       { name: "JavaScript" },
     ],
     github: "https://github.com/pankaja08/Smilecare_SE_Dental_Management",
-    image: "/proj_smilecare_final.png",
+    image: "/proj_smilecare_final.webp",
     imageAlt: "SmileCare dental management system homepage",
     mockupType: "promo",
     reversed: true,
@@ -274,6 +274,7 @@ function BrowserMockup({
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           style={{ objectFit: "cover", objectPosition: "top" }}
+          loading="lazy"
         />
         {/* Subtle scan-line overlay */}
         <div
@@ -295,11 +296,13 @@ function PromoMockup({
   alt,
   accentColor,
   accentGlow,
+  isPriority = false,
 }: {
   image: string;
   alt: string;
   accentColor: string;
   accentGlow: string;
+  isPriority?: boolean;
 }) {
   return (
     <motion.div
@@ -344,7 +347,8 @@ function PromoMockup({
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             style={{ objectFit: "cover", objectPosition: "center" }}
-            priority
+            priority={isPriority}
+            loading={isPriority ? undefined : "lazy"}
           />
         </div>
       </div>
@@ -758,6 +762,7 @@ function ProjectContentCard({
 /* ─── Single Project Row ─────────────────────────────────────── */
 function ProjectRow({ project, index }: { project: FeaturedProject; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const mediaComponent =
@@ -774,6 +779,7 @@ function ProjectRow({ project, index }: { project: FeaturedProject; index: numbe
         alt={project.imageAlt}
         accentColor={project.accentColor}
         accentGlow={project.accentGlow}
+        isPriority={index === 0}
       />
     ) : (
       <BrowserMockup
@@ -787,7 +793,7 @@ function ProjectRow({ project, index }: { project: FeaturedProject; index: numbe
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={isMobile ? false : { opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       style={{ marginBottom: "5rem" }}
@@ -800,7 +806,7 @@ function ProjectRow({ project, index }: { project: FeaturedProject; index: numbe
 
         {/* Media showcase */}
         <motion.div
-          initial={{ opacity: 0, x: project.reversed ? -60 : 60 }}
+          initial={isMobile ? false : { opacity: 0, x: project.reversed ? -60 : 60 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           style={{

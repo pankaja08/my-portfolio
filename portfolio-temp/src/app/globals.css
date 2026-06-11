@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:wght@300;400;500;600;700&display=swap");
+/* Google Fonts are now loaded via next/font/google in layout.tsx — no @import needed */
 @import "tailwindcss";
 
 /* ─── Tailwind v4 CSS-based theme ─────────────────────────── */
 /* stylelint-disable-next-line at-rule-no-unknown */
 @theme {
-  --font-sans: "Plus Jakarta Sans", Inter, sans-serif;
+  --font-sans: var(--font-plus-jakarta, "Plus Jakarta Sans"), var(--font-inter, Inter), sans-serif;
 
   /* Brand colors */
   --color-brand-50: #e0f2fe;
@@ -67,13 +67,14 @@ section[id] {
 }
 
 body {
-  font-family: "Plus Jakarta Sans", Inter, sans-serif;
+  font-family: var(--font-plus-jakarta, "Plus Jakarta Sans"), var(--font-inter, Inter), sans-serif;
   background: #0f172a;
   background-image: 
     radial-gradient(ellipse at 20% 50%, rgba(14, 165, 233, 0.12) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
     linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0c1445 100%);
-  background-attachment: fixed;
+  /* REMOVED: background-attachment: fixed — this triggers constant GPU repaints on iOS/Android
+     and is the #1 mobile performance killer. Use a fixed <div> overlay instead if needed. */
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -566,6 +567,34 @@ body {
 
 .animate-pulse-slow {
   animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ─── Reduced-Motion: respect OS accessibility setting ─────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Mobile: disable expensive CSS effects ─────────────────── */
+@media (max-width: 767px) {
+  /* Heavy blur on decorative orbs is very expensive on mobile GPU */
+  .hero-bg-orb {
+    display: none;
+  }
+  /* Reduce backdrop blur on cards — cheaper on mobile */
+  .glass-heavy {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  /* Remove blur on skill cards on mobile */
+  .skill-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(15, 23, 42, 0.92) !important;
+  }
 }
 
 /* Shadow utilities used inline */

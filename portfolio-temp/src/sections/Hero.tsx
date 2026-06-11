@@ -173,15 +173,19 @@ export default function Hero() {
       id="about"
       className="relative min-h-screen flex flex-col overflow-hidden pt-24"
     >
-      {/* Ambient blobs */}
-      <div
-        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full animate-pulse-slow pointer-events-none"
-        style={{ background: "rgba(14,165,233,0.08)", filter: "blur(120px)" }}
-      />
-      <div
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full animate-pulse-slow pointer-events-none"
-        style={{ background: "rgba(99,102,241,0.08)", filter: "blur(120px)", animationDelay: "2s" }}
-      />
+      {/* Ambient blobs — hidden on mobile via CSS for perf */}
+      {!isMobile && (
+        <>
+          <div
+            className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full animate-pulse-slow pointer-events-none"
+            style={{ background: "rgba(14,165,233,0.08)", filter: "blur(80px)" }}
+          />
+          <div
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full animate-pulse-slow pointer-events-none"
+            style={{ background: "rgba(99,102,241,0.08)", filter: "blur(80px)", animationDelay: "2s" }}
+          />
+        </>
+      )}
 
       <div className="hero-container">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -191,7 +195,7 @@ export default function Hero() {
 
             {/* ─ Available badge ─ */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={isMobile ? false : { opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               style={{
@@ -233,9 +237,9 @@ export default function Hero() {
 
               {/* Hi there */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={isMobile ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.6, delay: isMobile ? 0 : 0.1 }}
                 style={{ fontSize: "1.125rem", fontWeight: 600, color: "#cbd5e1", letterSpacing: "0.01em" }}
               >
                 Hi there, I&apos;m 👋
@@ -245,7 +249,7 @@ export default function Hero() {
               <motion.h1
                 initial="hidden"
                 animate="visible"
-                variants={{
+                variants={isMobile ? {} : {
                   visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } },
                   hidden: {}
                 }}
@@ -263,7 +267,7 @@ export default function Hero() {
                 {/* Typing effect for "Pankaja" */}
                 <span style={{ color: "#f1f5f9", display: "flex" }}>
                   {"Pankaja".split("").map((char, i) => (
-                    <motion.span key={`p-${i}`} variants={{ hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
+                    <motion.span key={`p-${i}`} variants={isMobile ? {} : { hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
                       {char}
                     </motion.span>
                   ))}
@@ -272,7 +276,7 @@ export default function Hero() {
                 {/* Typing effect for "Yunidu" */}
                 <span className="text-gradient" style={{ display: "flex" }}>
                   {"Yunidu".split("").map((char, i) => (
-                    <motion.span key={`y-${i}`} variants={{ hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
+                    <motion.span key={`y-${i}`} variants={isMobile ? {} : { hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
                       {char}
                     </motion.span>
                   ))}
@@ -281,9 +285,9 @@ export default function Hero() {
 
               {/* Role */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={isMobile ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
+                transition={{ duration: 0.6, delay: isMobile ? 0 : 0.35 }}
               >
                 <p style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", fontWeight: 600, color: "#cbd5e1", lineHeight: 1.5 }}>
                   Data Science Student &amp;{" "}
@@ -293,9 +297,9 @@ export default function Hero() {
             </div>
             {/* Description - Beautifully readable, search-engine accessible paragraph */}
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
+              initial={isMobile ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
+              transition={{ duration: 0.6, delay: isMobile ? 0 : 0.45 }}
               style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7, maxWidth: "42rem", marginTop: "-0.75rem" }}
             >
               A passionate tech enthusiast specializing in{" "}
@@ -306,9 +310,9 @@ export default function Hero() {
 
             {/* Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={isMobile ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              transition={{ duration: 0.6, delay: isMobile ? 0 : 0.8 }}
               className="flex flex-wrap items-center gap-6"
             >
               <a
@@ -345,9 +349,9 @@ export default function Hero() {
 
             {/* Stats Row — Clear Glass Cards */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={isMobile ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
+              transition={{ duration: 0.6, delay: isMobile ? 0 : 1.0 }}
               className="flex flex-wrap gap-4 pt-4 mt-6"
             >
               {[
@@ -380,9 +384,9 @@ export default function Hero() {
 
           {/* ── Right: Animated Data Science Visual (5 of 12 cols) ── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={isMobile ? false : { opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.9, delay: isMobile ? 0 : 0.3, ease: "easeOut" }}
             className="lg:col-span-5 relative h-[300px] sm:h-[400px] lg:h-[540px] flex items-center justify-center"
           >
             {!isMobile ? <HeroVisual /> : (
@@ -405,9 +409,9 @@ export default function Hero() {
 
         {/* Scroll Indicator */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={isMobile ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.4, duration: 0.6 }}
+          transition={{ delay: isMobile ? 0 : 1.4, duration: 0.6 }}
           className="flex justify-center mt-16"
         >
           <a
