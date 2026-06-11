@@ -380,18 +380,23 @@ function CapabilityCard({ group, idx }: { group: SkillGroup; idx: number }) {
   const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     <motion.div
-      initial={isMobile ? false : { opacity: 0, y: 40 }}
+      // On mobile: start fully visible (opacity:1). The SSR renders opacity:0 (isMobile=false on server)
+      // which causes cards to be invisible. Setting initial to opacity:1 on mobile ensures
+      // framer-motion animates FROM hidden TO visible immediately on hydration.
+      initial={{ opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 40 }}
+      animate={isMobile ? { opacity: 1, y: 0 } : undefined}
       whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay: isMobile ? 0 : idx * 0.13, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: isMobile ? 0.15 : 0.6, delay: isMobile ? 0 : idx * 0.13, ease: [0.22, 1, 0.36, 1] }}
       className="skill-card"
       style={{
         position: "relative",
         borderRadius: 20,
         overflow: "hidden",
-        background: "rgba(15,23,42,0.62)",
-        backdropFilter: "blur(22px)",
-        WebkitBackdropFilter: "blur(22px)",
+        background: "rgba(15,23,42,0.92)",
+        // Remove backdrop-filter on mobile — very expensive and already handled by CSS
+        backdropFilter: isMobile ? "none" : "blur(22px)",
+        WebkitBackdropFilter: isMobile ? "none" : "blur(22px)",
         border: "1px solid rgba(255,255,255,0.08)",
         boxShadow: "0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
         padding: "1.75rem",
@@ -507,29 +512,34 @@ export default function Skills() {
       {/* Anti-gravity background — pointerEvents:none so cards still receive clicks */}
       {!isMobile && <AntiGravityBackground mouseRef={mouseRef} activeRef={activeRef} />}
 
-      {/* Ambient blobs */}
-      <div style={{
-        position: "absolute", top: "10%", left: "-10%",
-        width: 500, height: 500, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 70%)",
-        filter: "blur(90px)", pointerEvents: "none", zIndex: 1,
-      }} />
-      <div style={{
-        position: "absolute", bottom: "10%", right: "-10%",
-        width: 500, height: 500, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(129,140,248,0.05) 0%, transparent 70%)",
-        filter: "blur(90px)", pointerEvents: "none", zIndex: 1,
-      }} />
+      {/* Ambient blobs — skip on mobile, they cause GPU repaints */}
+      {!isMobile && (
+        <>
+          <div style={{
+            position: "absolute", top: "10%", left: "-10%",
+            width: 500, height: 500, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 70%)",
+            filter: "blur(90px)", pointerEvents: "none", zIndex: 1,
+          }} />
+          <div style={{
+            position: "absolute", bottom: "10%", right: "-10%",
+            width: 500, height: 500, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(129,140,248,0.05) 0%, transparent 70%)",
+            filter: "blur(90px)", pointerEvents: "none", zIndex: 1,
+          }} />
+        </>
+      )}
 
       {/* Foreground */}
       <div style={{ maxWidth: "72rem", margin: "0 auto", padding: "0 1rem", position: "relative", zIndex: 10 }}>
 
-        {/* Header */}
+        {/* Header — no whileInView on mobile to avoid SSR opacity:0 trap */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 30 }}
+          animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: isMobile ? 0 : 0.6 }}
           style={{ textAlign: "center", marginBottom: "3.5rem" }}
         >
           <span style={{

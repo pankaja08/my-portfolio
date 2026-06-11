@@ -171,7 +171,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex flex-col overflow-hidden pt-24"
+      className="relative min-h-screen flex flex-col overflow-hidden"
     >
       {/* Ambient blobs — hidden on mobile via CSS for perf */}
       {!isMobile && (
@@ -208,7 +208,8 @@ export default function Hero() {
                 border: "1px solid rgba(56,189,248,0.35)",
                 boxShadow: "0 0 18px rgba(56,189,248,0.12)",
                 width: "fit-content",
-                marginTop: "-1.5rem",
+                // Negative margin only on desktop where there's more room
+                marginTop: isMobile ? "0" : "-1.5rem",
               }}
             >
               {/* Pulsing ring + dot */}

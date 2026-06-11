@@ -969,7 +969,8 @@ body {
   box-sizing: border-box;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: 5rem;
+  /* 5.5rem = 88px — comfortably clears the ~64px fixed navbar on mobile */
+  padding-top: 5.5rem;
   padding-bottom: 3rem;
 }
 
