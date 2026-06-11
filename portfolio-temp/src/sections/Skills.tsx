@@ -285,9 +285,9 @@ const skillGroups: SkillGroup[] = [
     gradientBlob: "radial-gradient(circle, rgba(129,140,248,0.25) 0%, rgba(192,132,252,0.1) 60%, transparent 80%)",
     dividerColor: "rgba(129,140,248,0.2)",
     sections: [
-      { label: "Core", pills: ["Machine Learning", "CNN", "Generative AI", "Data Mining", "Feature Engineering", "Data Preprocessing"] },
+      { label: "Core", pills: ["Machine Learning", "CNN", "Generative AI", "Feature Engineering", "Data Preprocessing", "Data Visualization", "Data Analysis"] },
       { label: "Languages", pills: ["Python", "R"] },
-      { label: "Libraries & Tools", pills: ["TensorFlow", "NumPy", "Pandas", "SciPy", "Matplotlib", "Plotly", "Seaborn"] },
+      { label: "Libraries & Tools", pills: ["TensorFlow", "NumPy", "Pandas", "SciPy", "Matplotlib", "Plotly", "Seaborn", "Power BI"] },
     ],
   },
   {
@@ -304,7 +304,7 @@ const skillGroups: SkillGroup[] = [
     dividerColor: "rgba(56,189,248,0.2)",
     sections: [
       { label: "Frameworks", pills: ["Java Spring Boot", "Node.js", "Express.js", "REST APIs", "OOP"] },
-      { label: "Databases", pills: ["MySQL", "MS SQL Server", "MongoDB"] },
+      { label: "Databases", pills: ["MySQL", "MS SQL Server", "MongoDB", "PostgreSQL (Neon)"] },
       { label: "Languages", pills: ["Java", "C", "JavaScript"] },
     ],
   },

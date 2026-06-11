@@ -118,6 +118,14 @@ export default function Navbar() {
                   href={link.href}
                   onMouseEnter={() => setHovered(link.href)}
                   onMouseLeave={() => setHovered(null)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById(link.href.slice(1));
+                    if (el) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }}
                   style={{
                     position: "relative",
                     display: "flex", alignItems: "center", gap: 6,
@@ -240,7 +248,15 @@ export default function Navbar() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.04, duration: 0.2 }}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMenuOpen(false);
+                      const el = document.getElementById(link.href.slice(1));
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
+                    }}
                     style={{
                       display: "flex", alignItems: "center", gap: 12,
                       padding: "10px 14px",

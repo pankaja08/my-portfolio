@@ -8,6 +8,7 @@ import {
   ArrowRight,
   Award,
   BarChart2,
+  Database,
 } from "lucide-react";
 import { ElementType } from "react";
 
@@ -38,6 +39,29 @@ interface Cert {
 
 const certifications: Cert[] = [
   // ── Jun 2026 ──────────────────────────────────────────────
+  {
+    id: "cert-cisco-data-analytics",
+    name: "Data Analytics Essentials",
+    issuer: "Cisco Networking Academy",
+    period: "Jun 2026",
+    tag: "Data Analytics",
+    credentialUrl: "https://www.credly.com/badges/df771289-ce29-477b-a80c-afaaa6617405/linked_in?t=tgdmxl",
+    Icon: Database,
+    skills: ["Data Analytics", "Excel", "SQL", "Tableau", "Statistics", "Data Preparation"],
+    color: {
+      icon: "#818cf8",
+      iconBg: "rgba(129,140,248,0.12)",
+      iconBorder: "rgba(129,140,248,0.25)",
+      badge: "#818cf8",
+      badgeBg: "rgba(129,140,248,0.1)",
+      badgeBorder: "rgba(129,140,248,0.2)",
+      hoverBorder: "rgba(129,140,248,0.4)",
+      shadow: "0 0 35px rgba(129,140,248,0.18), 0 20px 40px rgba(0,0,0,0.4)",
+      gradientBlob: "radial-gradient(circle, rgba(129,140,248,0.28) 0%, rgba(99,102,241,0.12) 50%, transparent 70%)",
+      divider: "rgba(129,140,248,0.25)",
+      linkHover: "#818cf8",
+    },
+  },
   {
     id: "cert-cisco-ds",
     name: "Introduction to Data Science",

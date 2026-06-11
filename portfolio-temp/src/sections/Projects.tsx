@@ -923,8 +923,8 @@ export default function Projects() {
           >
             {[
               { icon: <BarChart3 size={14} />, value: "4+", label: "Featured Projects" },
-              { icon: <Brain size={14} />, value: "94%", label: "Best Model Accuracy" },
-              { icon: <Users size={14} />, value: "5+", label: "Group Builds" },
+              { icon: <Brain size={14} />, value: "91%", label: "Best Model Accuracy" },
+              { icon: <Users size={14} />, value: "4", label: "Group Builds" },
               { icon: <Database size={14} />, value: "2", label: "AI Backends" },
             ].map((s) => (
               <div
@@ -993,7 +993,24 @@ export default function Projects() {
           style={{ display: "flex", justifyContent: "center", marginTop: "1rem", marginBottom: "2rem" }}
         >
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={() => {
+              if (isExpanded) {
+                // Track certifications section during the 800ms collapse animation
+                const el = document.getElementById('certifications');
+                if (el) {
+                  const start = performance.now();
+                  const step = (time: number) => {
+                    if (time - start < 850) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                      window.scrollTo(0, y);
+                      requestAnimationFrame(step);
+                    }
+                  };
+                  requestAnimationFrame(step);
+                }
+              }
+              setIsExpanded(!isExpanded);
+            }}
             style={{
               display: "inline-flex", alignItems: "center", gap: 10,
               padding: "12px 24px", borderRadius: 999,
