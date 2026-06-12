@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  User, Zap, Briefcase, FolderOpen, Award, Mail,
+  User, Zap, Briefcase, FolderOpen, GraduationCap, Award, Mail,
   ExternalLink, Menu, X, ChevronDown,
 } from "lucide-react";
 
@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Skills",         href: "#skills",         icon: Zap },
   { label: "Experience",     href: "#experience",     icon: Briefcase },
   { label: "Projects",       href: "#projects",       icon: FolderOpen },
+  { label: "Education",      href: "#education",      icon: GraduationCap },
   { label: "Certifications", href: "#certifications", icon: Award },
   { label: "Contact",        href: "#contact",        icon: Mail },
 ];

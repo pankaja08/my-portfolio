@@ -19,6 +19,10 @@ const Certifications = dynamic(() => import("@/sections/Certifications"), {
   ssr: false,
   loading: () => <div style={{ minHeight: "400px" }} aria-hidden />,
 });
+const Education = dynamic(() => import("@/sections/Education"), {
+  ssr: false,
+  loading: () => <div style={{ minHeight: "500px" }} aria-hidden />,
+});
 const Contact = dynamic(() => import("@/sections/Contact"), {
   ssr: false,
   loading: () => <div style={{ minHeight: "400px" }} aria-hidden />,
@@ -44,6 +48,7 @@ export default function Home() {
       <Skills />
       <Experience />
       <Projects />
+      <Education />
       <Certifications />
       <Contact />
       <Footer />

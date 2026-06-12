@@ -247,42 +247,68 @@ export default function Hero() {
               </motion.p>
 
               {/* Name */}
-              <motion.h1
-                initial="hidden"
-                animate="visible"
-                variants={isMobile ? {} : {
-                  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } },
-                  hidden: {}
-                }}
-                style={{
-                  fontSize: "clamp(2.5rem, 6vw, 4.25rem)",
-                  fontWeight: 800,
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  rowGap: "0.4rem",
-                  columnGap: "0.8rem",
-                }}
-              >
-                {/* Typing effect for "Pankaja" */}
-                <span style={{ color: "#f1f5f9", display: "flex" }}>
-                  {"Pankaja".split("").map((char, i) => (
-                    <motion.span key={`p-${i}`} variants={isMobile ? {} : { hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-
-                {/* Typing effect for "Yunidu" */}
-                <span className="text-gradient" style={{ display: "flex" }}>
-                  {"Yunidu".split("").map((char, i) => (
-                    <motion.span key={`y-${i}`} variants={isMobile ? {} : { hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}>
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-              </motion.h1>
+              {isMobile ? (
+                /* On mobile: plain HTML — no framer-motion so letters are ALWAYS visible.
+                   The SSR/hydration mismatch causes motion.span with variants={} to stay
+                   at opacity:0 (painted that way by server). Avoiding motion entirely
+                   ensures the name is never invisible. */
+                <h1
+                  style={{
+                    fontSize: "clamp(2.5rem, 6vw, 4.25rem)",
+                    fontWeight: 800,
+                    lineHeight: 1.15,
+                    letterSpacing: "-0.02em",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    rowGap: "0.4rem",
+                    columnGap: "0.8rem",
+                  }}
+                >
+                  <span style={{ color: "#f1f5f9" }}>Pankaja</span>
+                  <span className="text-gradient">Yunidu</span>
+                </h1>
+              ) : (
+                /* Desktop: per-letter stagger animation */
+                <motion.h1
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } },
+                    hidden: {},
+                  }}
+                  style={{
+                    fontSize: "clamp(2.5rem, 6vw, 4.25rem)",
+                    fontWeight: 800,
+                    lineHeight: 1.15,
+                    letterSpacing: "-0.02em",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    rowGap: "0.4rem",
+                    columnGap: "0.8rem",
+                  }}
+                >
+                  <span style={{ color: "#f1f5f9", display: "flex" }}>
+                    {"Pankaja".split("").map((char, i) => (
+                      <motion.span
+                        key={`p-${i}`}
+                        variants={{ hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </span>
+                  <span className="text-gradient" style={{ display: "flex" }}>
+                    {"Yunidu".split("").map((char, i) => (
+                      <motion.span
+                        key={`y-${i}`}
+                        variants={{ hidden: { opacity: 0, scale: 0.6 }, visible: { opacity: 1, scale: 1 } }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </span>
+                </motion.h1>
+              )}
 
               {/* Role */}
               <motion.div
