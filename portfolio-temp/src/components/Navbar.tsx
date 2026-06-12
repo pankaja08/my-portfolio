@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   User, Zap, Briefcase, FolderOpen, GraduationCap, Award, Mail,
-  ExternalLink, Menu, X, ChevronDown,
+  ExternalLink, Menu, X,
 } from "lucide-react";
 
 const navLinks = [
@@ -21,6 +22,7 @@ export default function Navbar() {
   const [active,   setActive]     = useState("#about");
   const [menuOpen, setMenuOpen]   = useState(false);
   const [hovered,  setHovered]    = useState<string | null>(null);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     const onScroll = () => {
@@ -39,13 +41,22 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!scrolled) {
+      setMenuOpen(false);
+    }
+  }, [scrolled]);
+
   return (
     <>
       {/* ── Floating pill navbar ── */}
       <motion.header
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        animate={{
+          y: isMobile && scrolled ? -100 : 0,
+          opacity: isMobile && scrolled ? 0 : 1
+        }}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
         className="fixed top-0 left-0 right-0 z-50 flex justify-center"
         style={{ paddingTop: scrolled ? "10px" : "16px", transition: "padding 0.4s ease" }}
       >
@@ -213,6 +224,50 @@ export default function Navbar() {
         </div>
       </motion.header>
 
+      {/* ── Mobile Floating circular menu button when scrolled down ── */}
+      <AnimatePresence>
+        {isMobile && scrolled && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 350, damping: 25 }}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="fixed z-50 flex items-center justify-center"
+            style={{
+              top: "14px",
+              right: "4%",
+              width: "42px",
+              height: "42px",
+              borderRadius: "50%",
+              background: "rgba(10, 15, 40, 0.85)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15)",
+              color: "#f1f5f9",
+              cursor: "pointer",
+            }}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Background click-away overlay for mobile menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMenuOpen(false)}
+            className="md:hidden fixed inset-0 z-30"
+            style={{ background: "rgba(0, 0, 0, 0.4)", backdropFilter: "blur(4px)" }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* ── Mobile dropdown ── */}
       <AnimatePresence>
         {menuOpen && (
@@ -223,7 +278,7 @@ export default function Navbar() {
             transition={{ duration: 0.22, ease: "easeOut" }}
             className="md:hidden fixed z-40"
             style={{
-              top: 72, left: "1rem", right: "1rem",
+              top: scrolled ? 68 : 72, left: "1rem", right: "1rem",
               background: "rgba(8, 12, 35, 0.92)",
               backdropFilter: "blur(28px)",
               WebkitBackdropFilter: "blur(28px)",

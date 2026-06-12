@@ -61,9 +61,8 @@ export default function Education() {
       details: [
         "G.C.E. Advanced Level [2023] — Physical Science / Mathematics Stream.",
         "G.C.E. Ordinary Level [2020] — Passed with outstanding honors.",
-        "Acquired strong foundational skills in mechanical physics, advanced mathematics, and general chemistry."
       ],
-      skills: ["Mathematics", "Physics", "Chemistry", "Analytical Logic"],
+      skills: ["Combined Mathematics", "Physics", "ICT"],
       icon: <BookOpen size={20} />,
       color: {
         accent: "#fb923c", // Orange
@@ -321,6 +320,17 @@ export default function Education() {
                       >
                         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", padding: "0.4rem 0 0", borderTop: "1px solid rgba(255,255,255,0.06)", marginTop: "0.4rem" }}>
                           
+                          {/* Image inside card on mobile */}
+                          <div className="mobile-card-image" style={{ position: "relative", width: "100%", height: "180px", borderRadius: 10, overflow: "hidden", marginBottom: "0.5rem" }}>
+                            <Image
+                              src={entry.image}
+                              alt={entry.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 30vw"
+                              style={{ objectFit: "cover" }}
+                            />
+                          </div>
+
                           {/* Subtitle */}
                           <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "0.2rem" }}>
                             {entry.subtitle}
@@ -605,10 +615,10 @@ export default function Education() {
           width: 100%;
         }
         .education-right {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+          display: none;
+        }
+        .mobile-card-image {
+          display: block;
         }
         .education-slideshow-wrap {
           height: auto;
@@ -623,7 +633,13 @@ export default function Education() {
             align-items: stretch;
           }
           .education-right {
+            display: flex !important;
+            width: 100%;
+            flex-direction: column;
             justify-content: stretch;
+          }
+          .mobile-card-image {
+            display: none !important;
           }
           .education-slideshow-wrap {
             height: 100% !important;
