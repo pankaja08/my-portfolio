@@ -81,6 +81,7 @@ function RobotBot({ isTyping, isSuccess }: { isTyping: boolean; isSuccess?: bool
           {/* Mouth — compresses and shifts left: focused/analytical expression */}
           {/* Wrap in motion.g so scaleX works on SVG (can't animate on path directly) */}
           <motion.g
+            initial={{ scaleX: 1, x: 0, opacity: 0.4 }}
             animate={isSuccess ? { scaleX: 1, x: 0, opacity: 1 } : isTyping ? { scaleX: 0.6, x: -4, opacity: 0.9 } : { scaleX: 1, x: 0, opacity: 0.4 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             style={{ originX: "100px", originY: "102px" }}

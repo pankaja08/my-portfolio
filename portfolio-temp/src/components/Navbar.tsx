@@ -8,11 +8,11 @@ import {
 } from "lucide-react";
 
 const navLinks = [
-  { label: "About",          href: "#about",          icon: User },
+  { label: "Home",           href: "#about",          icon: User },
+  { label: "About Me",       href: "#aboutme",        icon: GraduationCap },
   { label: "Skills",         href: "#skills",         icon: Zap },
   { label: "Experience",     href: "#experience",     icon: Briefcase },
   { label: "Projects",       href: "#projects",       icon: FolderOpen },
-  { label: "Education",      href: "#education",      icon: GraduationCap },
   { label: "Certifications", href: "#certifications", icon: Award },
   { label: "Contact",        href: "#contact",        icon: Mail },
 ];

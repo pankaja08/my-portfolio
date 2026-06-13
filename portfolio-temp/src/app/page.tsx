@@ -19,7 +19,7 @@ const Certifications = dynamic(() => import("@/sections/Certifications"), {
   ssr: false,
   loading: () => <div style={{ minHeight: "400px" }} aria-hidden />,
 });
-const Education = dynamic(() => import("@/sections/Education"), {
+const AboutMe = dynamic(() => import("@/sections/AboutMe"), {
   ssr: false,
   loading: () => <div style={{ minHeight: "500px" }} aria-hidden />,
 });
@@ -45,10 +45,10 @@ export default function Home() {
       </div>
 
       <Hero />
+      <AboutMe />
       <Skills />
       <Experience />
       <Projects />
-      <Education />
       <Certifications />
       <Contact />
       <Footer />
