@@ -185,6 +185,21 @@ export default function AboutMe() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Scroll-linked transition from Home to AboutMe
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "start 20%"], // from when section top hits bottom of viewport, to when top hits 20% from top
+  });
+
+  const sectionY = useTransform(scrollYProgress, [0, 1], [150, 0]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  const sectionScale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
+  
+  // A subtle spring to smooth the raw scroll transforms
+  const springY = useSpring(sectionY, { stiffness: 60, damping: 20 });
+  const springScale = useSpring(sectionScale, { stiffness: 60, damping: 20 });
+
   const entries: EduEntry[] = [
     {
       id: "edu-sliit",
@@ -255,8 +270,10 @@ export default function AboutMe() {
   const currentColor = entries[activeIndex].color;
 
   return (
-    <section
+    <motion.section
       id="aboutme"
+      ref={sectionRef}
+      style={{ y: springY, opacity: sectionOpacity, scale: springScale }}
       className="section-padding scroll-mt-24 relative overflow-hidden"
     >
       {/* Background ambient blob */}
@@ -655,6 +672,6 @@ export default function AboutMe() {
           .mobile-card-image { display: none !important; }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 }
